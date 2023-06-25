@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-
-
+import { decrement,increment,updateText } from '../../counter/counterSlice';
+import {useSelector,useDispatch} from 'react-redux'
+import type { RootState } from '../../app/store'
 
 const HomeScreen = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const emailText = useSelector((state:RootState) => state.counter.email);
 
     const handleLogin = () => {
    navigation.navigate("HomeScreen")
@@ -13,7 +15,7 @@ const HomeScreen = ({navigation}) => {
   
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Loogin</Text>
+        <Text style={styles.title}>Welcome {emailText}</Text>
   
         <TextInput
           style={styles.input}

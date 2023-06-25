@@ -2,20 +2,21 @@ import React, { useState } from 'react';
 import type { RootState } from '../../app/store'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import {useNavigation} from "@react-navigation/native"
-import { decrement,increment } from '../../counter/counterSlice';
+import { decrement,increment,updateText } from '../../counter/counterSlice';
 import {useSelector,useDispatch} from 'react-redux'
+
 
 
 
 export default function LoginScreen ()  {
   const count = useSelector((state: RootState) => state.counter.value)
+  const emailText = useSelector((state:RootState) => state.counter.email);
+
   const dispatch = useDispatch()
 
   const navigation=useNavigation()
 
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState(''); 
   
     const handleLogin = () => {
 
@@ -23,7 +24,7 @@ export default function LoginScreen ()  {
     };
 
 
-
+console.log("*******",emailText)
 
 
 
@@ -33,10 +34,10 @@ export default function LoginScreen ()  {
   
         <TextInput
           style={styles.input}
-          placeholder="Email"
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          autoCapitalize="none"
+          placeholder="Nameat"
+          onChangeText={(text) => dispatch(updateText(text))}
+          value={emailText}
+
         />
   
         <TextInput
@@ -47,8 +48,8 @@ export default function LoginScreen ()  {
           secureTextEntry
         />
   
-        <TouchableOpacity style={styles.button} onPress={()=>dispatch(increment())}>
-          <Text>{count}</Text>
+        <TouchableOpacity style={styles.button} onPress={()=>{handleLogin()}}>
+
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>
